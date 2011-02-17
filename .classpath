@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/checkstyle/checkstyle-all.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/annotations.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/asm-analysis.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/asm-commons.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/asm-tree.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/asm-util.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/asm-xml.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/asm.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/bcel.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/dom4j.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/findbugs-ant.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/findbugs.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/jaxen.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/jFormatString.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/jsr305.jar"/>
+	<classpathentry kind="lib" path="lib/findbugs/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/junit/junit.jar"/>
+	<classpathentry kind="lib" path="lib/pmd/asm.jar"/>
+	<classpathentry kind="lib" path="lib/pmd/jaxen.jar"/>
+	<classpathentry kind="lib" path="lib/pmd/junit.jar"/>
+	<classpathentry kind="lib" path="lib/pmd/pmd.jar"/>
+	<classpathentry kind="lib" path="lib/wattdepot/wattdepot-converter-oscar.jar"/>
+	<classpathentry kind="lib" path="lib/wattdepot/wattdepot-lib-client.jar"/>
+	<classpathentry kind="lib" path="lib/wattdepot/wattdepot-sensor-bmo.jar"/>
+	<classpathentry kind="lib" path="lib/wattdepot/wattdepot-sensor-tabular.jar"/>
+	<classpathentry kind="lib" path="lib/wattdepot/wattdepot-server.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/wattdepot-cli"/>
+	<classpathentry kind="lib" path="/wattdepot-cli/lib/wattdepot/wattdepot-lib-client.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

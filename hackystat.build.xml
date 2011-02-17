@@ -1,0 +1,40 @@
+<project name="hackystat" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+  Code for integrating Hackystat into build system.
+  </description>
+  
+  <!--
+    You can change the default settings of the following two properties on the command line.
+    For example:
+       ant -Dhackystat.enable=false -f checkstyle.build.xml
+       ant -Dhackystat.verbose.mode=true -f pmd.build.xml
+  -->
+  <property name="hackystat.verbose.mode" value="false" />
+  <property name="hackystat.enable" value="true" />
+
+  <!-- define hackystat.enabled iff hackystat.enable is true, so we can use it in an 'if' clause -->
+  <condition property="hackystat.enabled">
+    <istrue value="${hackystat.enable}" />
+  </condition>
+
+  <property name="ant.lib.dir" location="${user.home}/.ant/lib" />
+  <target name="define-sensors" description="Checks to make sure antsensors.jar is installed. Fails build if absent, defines ant sensor tasks if present.">
+    <available file="${ant.lib.dir}/antsensors.jar" type="file" property="antsensors.available" />
+    <fail message="Hackystat sensors not installed. Please invoke 'ant install-sensors'." unless="antsensors.available" />
+    <taskdef resource="antlib.xml" classpath="${ant.lib.dir}/antsensors.jar" />
+  </target>
+
+  <!-- The version of Hackystat to download from Ivy. -->
+  <property name="hackystat.version" value="8.3.1108"/>
+
+  <!-- This messes up Eclipse due to circular imports, but otherwise the file is flagged with an error because install-ivy is not defined. -->
+  <import file="build.xml"/>
+  <!-- antsensors.jar cannot be automatically installed during a run.  We must require the user to invoke 'ant install-sensors'.-->
+  <target name="install-sensors" depends="install-ivy" description="Installs the Ant and XmlData sensors.">
+    <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${ant.lib.dir}/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="ant,xmldata" transitive="false" type="jar" />
+    <echo message="Installed Ant sensors version ${hackystat.version} into ${ant.lib.dir}" />
+    <!-- Also install Eclipse and Sensorshell just for class bootstrapping purposes. -->
+    <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${lib.dir}/hackystat-eclipse/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="eclipse" transitive="false" type="jar" />
+    <ivy:retrieve module="hackystat" organisation="org.hackystat" revision="${hackystat.version}" pattern="${lib.dir}/hackystat-sensor-shell/[artifact].[ext]" sync="false" inline="true" log="download-only" conf="shell" transitive="false" type="jar" />
+  </target>
+</project>

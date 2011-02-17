@@ -1,0 +1,59 @@
+<project name="wattdepot-cli" default="compile" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+  Top-level build file for the WattDepot-CLI system. 
+  </description>
+
+  <import file="common.build.xml" />
+  <import file="hackystat.build.xml" />
+  
+  <property name="junit.version" value="4.5"/>
+  <property name="wattdepot.version" value="0.10.1108"/>
+
+  <target name="install-libraries" description="Install JUnit and Robocode service libraries.">
+    <ivy:retrieve organisation="org.junit" module="junit" revision="${junit.version}" 
+      pattern="${lib.dir}/junit/[artifact].[ext]" inline="true" conf="default" 
+      log="download-only" transitive="false" type="jar" />
+    <path id="junit.path" location="${lib.dir}/junit/junit.jar" />
+
+    <ivy:retrieve module="wattdepot" organisation="org.wattdepot" revision="${wattdepot.version}" 
+      pattern="${lib.dir}/wattdepot/[artifact].[ext]" inline="true" log="download-only" />
+    <path id="wattdepot-clientlib.path" location="${lib.dir}/wattdepot/wattdepot-lib-client.jar" />
+
+  </target>
+
+  <!-- Basic properties for this system. -->
+  <property name="system.name" value="wattdepot-cli-ekolu" />
+  <property name="majorVersionNumber" value="2" />
+  <property name="minorVersionNumber" value="0" />
+  <tstamp>
+    <format property="DAYSTAMP" pattern="Mdd" />
+  </tstamp>
+  <property name="version" value="${majorVersionNumber}.${minorVersionNumber}.${DAYSTAMP}" />
+
+
+  <!-- The compile classpath is useful to many tools. -->
+  <path id="compile.classpath">
+    <path refid="junit.path" />
+    <path refid="wattdepot-clientlib.path" />
+  </path>
+
+  <target name="compile" depends="install-ivy, install-libraries" description="Compiles the code.">
+    <!-- Now compile the code into build/classes -->
+    <mkdir dir="${build.dir}/classes" />
+    <javac srcdir="${src.dir}" destdir="${build.dir}/classes" debug="on" includeAntRuntime="no">
+      <classpath refid="compile.classpath" />
+      <compilerarg value="-Xlint:all" />
+      <compilerarg value="-Werror" />
+    </javac>
+  </target>
+
+  <target name="run" depends="compile" description="Compiles the WattDepot CLI and then runs it.">
+    <java classname="org.wattdepot.cli.CommandLineInterface" fork="yes">
+      <classpath>
+        <pathelement location="${build.dir}/classes" />
+        <path refid="compile.classpath" />
+      </classpath>
+    </java>
+  </target>
+
+</project>

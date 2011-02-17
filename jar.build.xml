@@ -1,0 +1,35 @@
+<project name="jar" default="jar" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+  Provides the targets for building jar files. 
+  </description>
+
+  <import file="build.xml" />
+  <property name="tmp.dir" location="${basedir}/tmp" />
+  <property name="tmp.lib.dir" location="${basedir}/tmp-lib" />
+  <property name="build.jar.dir" location="${build.dir}/jar" />
+  
+  <target name="jar" depends="compile" description="Create wattdepot-cli.jar">
+    <!-- Define the directories and distribution name -->
+    <mkdir dir="${tmp.dir}" />
+    <mkdir dir="${build.jar.dir}" />
+    
+    <!-- Copy over java and class files. -->
+    <copy todir="${tmp.dir}">
+      <fileset dir="${basedir}/build/classes" />
+      <fileset dir="${basedir}/src" />
+    </copy>
+    
+    <unjar src="${lib.dir}/wattdepot/wattdepot-lib-client.jar" dest="${tmp.dir}" />
+    
+    <jar destfile="${build.jar.dir}/wattdepot-cli-ekolu.jar" basedir="${tmp.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="org.wattdepot.cli.CommandLineInterface"/>
+        <attribute name="Implementation-Title" value="WattDepot CLI"/>
+        <attribute name="Implementation-Version" value="${version}"/>
+      </manifest>
+    </jar>
+    <delete dir="${tmp.dir}" />
+  </target>
+
+</project>
+

@@ -1,0 +1,18 @@
+<project name="hudson" default="hudson.integration">
+  <description>
+  A set of tasks for doing integration/daily builds of Hackystat using Hudson.
+  </description>
+  
+  <import file="verify.build.xml" />
+
+  <target name="hudson.integration" depends="verify"
+    description="Integration build simply runs verify target for now."/>
+  
+  <target name="hudson.daily.build"
+      depends="clean, compile, javancss, dependencyfinder, sclc, emma" 
+      description="Runs QA information (coverage, coupling, complexity, size) on a daily basis.">
+   </target>
+ 
+</project>
+  
+  
